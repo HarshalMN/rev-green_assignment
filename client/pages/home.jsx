@@ -25,7 +25,7 @@ const Home = () => {
 
         socket.onmessage = (event) => {
             try {
-                const messages = JSON.parse(event.data); // expects array like ["D1V12C34T56", "D2V22C44T88"]
+                const messages = JSON.parse(event.data); // ["D1V12C34T56", "D2V22C44T88"]
                 const updatedData = { ...deviceData };
 
                 messages.forEach((message) => {
@@ -33,12 +33,12 @@ const Home = () => {
                     if (parsed && (parsed.deviceId === "D1" || parsed.deviceId === "D2")) {
                         const { deviceId, voltage, current, temperature } = parsed;
 
-                        // Update current values
+                        // This will update the current values
                         updatedData[deviceId].voltage = voltage;
                         updatedData[deviceId].current = current;
                         updatedData[deviceId].temperature = temperature;
 
-                        // Update history
+                        // This will update the history
                         updatedData[deviceId].history.voltage.push(voltage);
                         updatedData[deviceId].history.current.push(current);
                         updatedData[deviceId].history.temperature.push(temperature);
@@ -104,24 +104,52 @@ const Home = () => {
     const renderDeviceData = (deviceId) => {
         const device = deviceData[deviceId];
         return (
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <div style={boxStyle}>
-                    <h3>Voltage</h3>
-                    <p>{device.voltage} V</p>
-                    {renderGraph(device.history.voltage, "Voltage", "blue")}
+            <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+                <div style={{ height: "30%", display: "flex", justifyContent: "space-around", alignItems: "center" }}>
+                    <div style={valueBoxStyle}>
+                        <h3>Voltage</h3>
+                        <p>{device.voltage} V</p>
+                    </div>
+                    <div style={valueBoxStyle}>
+                        <h3>Current</h3>
+                        <p>{device.current} A</p>
+                    </div>
+                    <div style={valueBoxStyle}>
+                        <h3>Temperature</h3>
+                        <p>{device.temperature} °C</p>
+                    </div>
                 </div>
-                <div style={boxStyle}>
-                    <h3>Current</h3>
-                    <p>{device.current} A</p>
-                    {renderGraph(device.history.current, "Current", "green")}
-                </div>
-                <div style={boxStyle}>
-                    <h3>Temperature</h3>
-                    <p>{device.temperature} °C</p>
-                    {renderGraph(device.history.temperature, "Temperature", "red")}
+                <div style={{ height: "70%", display: "flex" }}>
+                    <div style={graphBoxStyle}>
+                        {renderGraph(device.history.voltage, "Voltage", "blue")}
+                    </div>
+                    <div style={graphBoxStyle}>
+                        {renderGraph(device.history.current, "Current", "green")}
+                    </div>
+                    <div style={graphBoxStyle}>
+                        {renderGraph(device.history.temperature, "Temperature", "red")}
+                    </div>
                 </div>
             </div>
         );
+    };
+
+    const valueBoxStyle = {
+        flex: 1,
+        textAlign: "center",
+        padding: "10px",
+        backgroundColor: "#f9f9f9",
+        borderRadius: "10px",
+        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+        margin: "0 10px",
+    };
+
+    const graphBoxStyle = {
+        flex: 1,
+        padding: "10px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
     };
 
     const tabStyle = (isActive) => ({
@@ -129,7 +157,7 @@ const Home = () => {
         padding: "10px",
         textAlign: "center",
         cursor: "pointer",
-        backgroundColor: isActive ? "#4caf50" : "#f0f0f0",
+        backgroundColor: isActive ? "#60B5FF" : "#f0f0f0",
         color: isActive ? "white" : "black",
         transition: "background-color 0.3s ease",
     });
@@ -161,6 +189,5 @@ const Home = () => {
         </div>
     );
 };
-
 
 export default Home;
