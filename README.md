@@ -52,35 +52,36 @@ Start both the client and server concurrently:
   
 Open your browser and navigate to http://localhost:5173 to view the frontend.
 
-## Scripts
+### Scripts
 npm run dev: Starts both the client and server.
 npm run client: Starts the React frontend only.
 npm run server: Starts the Node.js backend only.
 
-### Technologies Used
-## Frontend
+## Technologies Used
+### Frontend
 React: UI library for building interactive user interfaces.
 Vite: Fast build tool for modern web projects.
 Chart.js: Library for creating interactive charts.
 React-ChartJS-2: React wrapper for Chart.js.
 
-## Backend
+### Backend
 Node.js: JavaScript runtime for the server.
 Express: Web framework for building APIs.
 WebSocket: Real-time communication protocol.
 
-### Folder Details
-## Client
+## Folder Details
+### Client
 src/main.jsx: Entry point for the React application.
 src/App.jsx: Main application component.
 pages/home.jsx: Displays live device data and charts.
 
-## Server
+### Server
 index.js: WebSocket server that generates and sends random device data.
 
-### Future Enhancements
+## Future Enhancements
 Add user authentication for secure access.
 Support for more devices and dynamic device registration.
 Store historical data in a database for long-term analysis.
-### License
+
+## License
 This project is licensed under the MIT License. See the LICENSE file for details.
