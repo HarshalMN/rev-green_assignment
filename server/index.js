@@ -6,13 +6,10 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-// Enable CORS
 app.use(cors());
 
-// Create HTTP server
 const server = http.createServer(app);
 
-// Initialize WebSocket server instance
 const wss = new WebSocket.Server({ server });
 
 wss.on('connection', (ws) => {
